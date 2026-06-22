@@ -270,7 +270,7 @@
         </div>
         <div class="stat-item">
           <div class="stat-value yellow" id="statReclaimable">0</div>
-          <div class="stat-label">可回收</div>
+          <div class="stat-label">已选</div>
         </div>
         <div class="stat-item">
           <div class="stat-value green" id="statEstRent">0.000 SOL</div>
@@ -278,19 +278,44 @@
         </div>
       </div>
 
-      <!-- 操作栏 -->
-      <div class="card" style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="btn btn-accent" onclick="scanTokens()" id="scanBtn">🔍 扫描代币</button>
-        <button class="btn btn-danger" onclick="executeReclaim()" id="reclaimBtn" disabled>🗑️ 批量回收已选</button>
-        <label style="margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12px;color:#8888a0;">
-          <input type="checkbox" id="selectAll" onchange="toggleAll()"> 全选
-        </label>
+      <!-- 空账户 -->
+      <div class="card">
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>📭 空账户（可直接关闭）</span>
+          <label style="font-size:12px;display:flex;align-items:center;gap:6px;color:#8888a0;cursor:pointer;">
+            <input type="checkbox" id="selectAllEmpty" onchange="toggleAllEmpty()"> 全选
+          </label>
+        </div>
+        <div id="emptyTokenList"><div class="empty-state">点击「扫描代币」开始</div></div>
       </div>
 
-      <!-- 代币列表 -->
+      <!-- 有余额账户 -->
       <div class="card">
-        <div class="card-title">📋 代币账户列表</div>
-        <div id="tokenList"><div class="empty-state">点击「扫描代币」开始</div></div>
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>💰 有余额的账户（需先销毁）</span>
+          <label style="font-size:12px;display:flex;align-items:center;gap:6px;color:#8888a0;cursor:pointer;">
+            <input type="checkbox" id="selectAllBalance" onchange="toggleAllBalance()"> 全选
+          </label>
+        </div>
+        <div id="balanceTokenList"><div class="empty-state">暂无</div></div>
+      </div>
+
+      <!-- 操作栏 -->
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;">
+        <button class="btn btn-ghost" onclick="scanTokens()" id="scanBtn">🔄 重新扫描</button>
+      </div>
+
+      <!-- 汇总栏 -->
+      <div class="card" style="background:rgba(124,58,237,0.06);border-color:rgba(124,58,237,0.15);">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:#c8c8e0;">
+            <span>共 <strong id="summaryTotal" style="color:#e8e8f0;">0</strong> 个</span>
+            <span>📭 <strong id="summaryEmpty" style="color:#22c55e;">0</strong></span>
+            <span>💰 <strong id="summaryBalance" style="color:#eab308;">0</strong></span>
+            <span>回收 ≈ <strong id="summaryRent" style="color:#a78bfa;">0.000 SOL</strong></span>
+          </div>
+          <button class="btn btn-accent" onclick="executeReclaim()" id="reclaimBtn" disabled>🗑️ 批量回收</button>
+        </div>
       </div>
 
       <!-- 进度 -->
